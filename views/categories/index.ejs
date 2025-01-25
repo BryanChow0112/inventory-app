@@ -1,3 +1,4 @@
+<!-- views/categories/index.ejs -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -11,7 +12,11 @@
     <% if (categories && categories.length > 0) { %>
     <ul>
       <% categories.forEach(category => { %>
-      <li><%= category.name %></li>
+      <li>
+        <a href="/categories/<%= category.category_id %>"
+          ><%= category.name %></a
+        >
+      </li>
       <% }); %>
     </ul>
     <% } else { %>

@@ -24,4 +24,7 @@ router.post(
   categoryController.createCategoryPost
 );
 
+// GET - Display category detail
+router.get("/:id", categoryController.getCategoryById);
+
 module.exports = router;

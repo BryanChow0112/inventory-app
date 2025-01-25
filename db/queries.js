@@ -19,7 +19,21 @@ async function insertCategory(category) {
   }
 }
 
+async function getCategoryById(id) {
+  try {
+    const { rows } = await pool.query(
+      "SELECT * FROM categories WHERE category_id = $1",
+      [id]
+    );
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching category by id:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
-  insertCategory
+  insertCategory,
+  getCategoryById
 };

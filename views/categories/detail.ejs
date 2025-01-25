@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Category Detail</title>
+  </head>
+  <body>
+    <h1>Category Detail</h1>
+
+    <% if (category) { %>
+    <h2><%= category.name %></h2>
+    <p>Category ID: <%= category.category_id %></p>
+    <p><a href="/categories">Back to Category List</a></p>
+    <% } else { %>
+    <p>Category not found.</p>
+    <% } %>
+  </body>
+</html>
