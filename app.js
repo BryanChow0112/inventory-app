@@ -1,25 +1,36 @@
-require("dotenv").config(); // Load environment variables from .env file
+// Load environment variables from .env file
+require("dotenv").config();
+
+// Import required dependencies
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000;
+
+// Database connection
 const pool = require("./db/pool");
+
+// Import route handlers
 const categoryRouter = require("./routes/categories");
 const carRouter = require("./routes/cars");
 
-// Test database connection (optional, but good to check)
+// Test database connection
 pool
   .connect()
   .then(() => console.log("Connected to PostgreSQL database!"))
   .catch((err) => console.error("Database connection error:", err.stack));
 
-app.use(express.urlencoded({ extended: true }));
+// Middleware setup
+app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 app.use(express.static("public")); // Serve static files from public directory
 
-// Set up view engine (EJS)
+// View engine setup
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
-// Home route
+/**
+ * Home route
+ * Renders the main landing page
+ */
 app.get("/", async (req, res) => {
   try {
     res.render("index", { title: "Car Inventory Management" });
@@ -29,6 +40,7 @@ app.get("/", async (req, res) => {
   }
 });
 
+// Register route handlers
 app.use("/categories", categoryRouter);
 app.use("/cars", carRouter);
 
