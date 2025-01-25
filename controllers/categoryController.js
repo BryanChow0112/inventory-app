@@ -23,13 +23,13 @@ async function createCategoryPost(req, res) {
 }
 
 async function getCategoryById(req, res) {
-  const { id } = req.params;
+  const { categoryId } = req.params;
   try {
-    const category = await db.getCategoryById(id);
+    const category = await db.getCategoryById(categoryId);
     if (!category) {
       return res.status(404).send("Category not found");
     }
-    
+
     res.render("categories/detail", { category });
   } catch (error) {
     console.error("Error fetching category detail:", error);
@@ -37,9 +37,38 @@ async function getCategoryById(req, res) {
   }
 }
 
+async function updateCategoryGet(req, res) {
+  const { categoryId } = req.params;
+  try {
+    const category = await db.getCategoryById(categoryId);
+    if (!category) {
+      return res.status(404).send("Category not found");
+    }
+    // Render the update form view
+    res.render("categories/update", { category });
+  } catch (error) {
+    console.error("Error fetching category for update:", error);
+    res.status(500).send("Error fetching category for update");
+  }
+}
+
+async function updateCategoryPost(req, res) {
+  const { categoryId } = req.params;
+  const { name } = req.body;
+  try {
+    await db.updateCategory(categoryId, name);
+    res.redirect(`/categories/${categoryId}`);
+  } catch (error) {
+    console.error("Error updating category:", error);
+    res.status(500).send("Error updating category");
+  }
+}
+
 module.exports = {
   getAllCategories,
   createCategoryGet,
   createCategoryPost,
-  getCategoryById
+  getCategoryById,
+  updateCategoryGet,
+  updateCategoryPost
 };

@@ -1,4 +1,3 @@
-<!-- views/categories/index.ejs -->
 <!DOCTYPE html>
 <html>
   <head>
@@ -16,6 +15,7 @@
         <a href="/categories/<%= category.category_id %>"
           ><%= category.name %></a
         >
+        <a href="/categories/<%= category.category_id %>/update"> (Update)</a>
       </li>
       <% }); %>
     </ul>

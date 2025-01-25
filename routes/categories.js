@@ -25,6 +25,24 @@ router.post(
 );
 
 // GET - Display category detail
-router.get("/:id", categoryController.getCategoryById);
+router.get("/:categoryId", categoryController.getCategoryById);
+
+// GET - Display update category form for a specific category
+router.get("/:categoryId/update", categoryController.updateCategoryGet);
+
+// POST - Handle update category form submission with validation
+router.post(
+  "/:categoryId/update",
+  [
+    // Validation middleware array - same as for create
+    check("name")
+      .trim()
+      .notEmpty()
+      .withMessage("Category name is required")
+      .isLength({ max: 255 })
+      .withMessage("Category name cannot be longer than 255 characters")
+  ],
+  categoryController.updateCategoryPost
+);
 
 module.exports = router;

@@ -32,8 +32,21 @@ async function getCategoryById(id) {
   }
 }
 
+async function updateCategory(id, name) {
+  try {
+    await pool.query("UPDATE categories SET name = $1 WHERE category_id = $2", [
+      name,
+      id
+    ]);
+  } catch (error) {
+    console.error("Error updating category:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
   insertCategory,
-  getCategoryById
+  getCategoryById,
+  updateCategory
 };
