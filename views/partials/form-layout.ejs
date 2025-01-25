@@ -1,21 +1,30 @@
 <%- include('header', { title: pageTitle }) %>
 
-<div class="form-page">
-  <div class="form-container">
-    <h1><%= pageTitle %></h1>
+<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+    <div class="px-4 py-5 sm:p-6">
+      <h1 class="text-2xl font-bold text-gray-900 mb-6"><%= pageTitle %></h1>
 
-    <% if (locals.errors && errors.length > 0) { %>
-    <div class="error-message">
-      <ul>
-        <% errors.forEach(error => { %>
-        <li><%= error.msg %></li>
-        <% }); %>
-      </ul>
-    </div>
-    <% } %> <%- include(formContent, formData) %>
+      <form action="<%= formData.formAction %>" method="POST" class="space-y-6">
+        <%- include(formContent, formData) %>
 
-    <div class="form-navigation">
-      <%- include('form-navigation', { backUrl }) %>
+        <div
+          class="flex items-center justify-between pt-4 border-t border-gray-200"
+        >
+          <a
+            href="<%= backUrl %>"
+            class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            Back
+          </a>
+          <button
+            type="submit"
+            class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+          >
+            <%= formData.submitButtonText %>
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </div>

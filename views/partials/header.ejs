@@ -6,27 +6,31 @@
     <title><%= title %></title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-gray-50 min-h-screen">
-    <header class="bg-indigo-600 shadow-lg">
+  <body class="bg-gray-50 min-h-screen pb-16">
+    <header class="bg-indigo-600 shadow-lg mb-8">
       <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16 items-center">
-          <a href="/" class="text-white font-bold text-xl">Car Inventory</a>
+          <a
+            href="/"
+            class="text-white font-bold text-xl hover:text-indigo-100 transition-colors duration-200"
+            >Car Inventory</a
+          >
           <div class="flex space-x-4">
             <a
               href="/cars"
-              class="text-white hover:bg-indigo-500 px-3 py-2 rounded-md"
+              class="text-white hover:bg-indigo-500 px-3 py-2 rounded-md transition-colors duration-200"
               >Cars</a
             >
             <a
               href="/categories"
-              class="text-white hover:bg-indigo-500 px-3 py-2 rounded-md"
+              class="text-white hover:bg-indigo-500 px-3 py-2 rounded-md transition-colors duration-200"
               >Categories</a
             >
           </div>
         </div>
       </nav>
     </header>
-    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <% if (locals.error) { %>
       <div class="bg-red-50 border-l-4 border-red-400 p-4 mb-6">
         <div class="flex">
