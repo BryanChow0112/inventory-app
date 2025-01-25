@@ -1,14 +1,11 @@
-const categoryController = {
-  categoryList: async (req, res) => {
-    // Placeholder for listing categories
-    res.send("Placeholder for category list");
-  },
+const db = require("../db/queries");
 
-  categoryDetail: async (req, res) => {
-    const categoryId = req.params.categoryId;
-    // Placeholder for category detail
-    res.send(`Placeholder for category detail for ID: ${categoryId}`);
-  }
+async function getAllCategories(req, res) {
+  const categories = await db.getAllCategories();
+  console.log("Categories:", categories);
+  res.render("categories/index", { categories });
+}
+
+module.exports = {
+  getAllCategories
 };
-
-module.exports = categoryController;

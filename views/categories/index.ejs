@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Category List</title>
+  </head>
+  <body>
+    <h1>Car Categories</h1>
+
+    <p><a href="/categories/create">Create New Category</a></p>
+
+    <% if (categories && categories.length > 0) { %>
+    <ul>
+      <% categories.forEach(category => { %>
+      <li><%= category.name %></li>
+      <% }); %>
+    </ul>
+    <% } else { %>
+    <p>No categories found.</p>
+    <% } %>
+  </body>
+</html>
