@@ -65,11 +65,19 @@ async function getAllCars() {
   }
 }
 
-async function insertCar(make, model, year, price, categoryId) {
+async function insertCar(
+  make,
+  model,
+  year,
+  price,
+  categoryId,
+  color = null,
+  description = null
+) {
   try {
     await pool.query(
-      "INSERT INTO cars (make, model, year, price, category_id) VALUES ($1, $2, $3, $4, $5)",
-      [make, model, year, price, categoryId]
+      "INSERT INTO cars (make, model, year, price, category_id, color, description) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+      [make, model, year, price, categoryId, color, description]
     );
   } catch (error) {
     console.error("Error inserting car:", error);
@@ -79,9 +87,11 @@ async function insertCar(make, model, year, price, categoryId) {
 
 async function getCarById(id) {
   try {
-    const { rows } = await pool.query("SELECT * FROM cars WHERE car_id = $1", [
-      id
-    ]);
+    const { rows } = await pool.query(
+      "SELECT cars.*, categories.name AS category_name FROM cars JOIN categories ON cars.category_id = categories.category_id WHERE car_id = $1",
+      [id]
+    );
+    console.log("Car:", rows[0]);
     return rows[0];
   } catch (error) {
     console.error("Error fetching car by id:", error);

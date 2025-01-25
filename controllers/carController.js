@@ -18,9 +18,18 @@ async function createCarGet(req, res) {
 }
 
 async function createCarPost(req, res) {
-  const { make, model, year, price, category_id } = req.body;
+  const { make, model, year, price, category_id, color, description } =
+    req.body;
   try {
-    await db.insertCar(make, model, year, price, category_id);
+    await db.insertCar(
+      make,
+      model,
+      year,
+      price,
+      category_id,
+      color,
+      description
+    );
     res.redirect("/cars");
   } catch (error) {
     console.error("Error creating car:", error);

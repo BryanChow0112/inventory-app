@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car Detail</title>
+  </head>
+  <body>
+    <h1>Car Detail</h1>
+
+    <% if (car) { %>
+    <h2><%= car.make %> <%= car.model %> (<%= car.year %>)</h2>
+    <p>Category: <%= car.category_name %></p>
+    <p>Price: $<%= car.price %></p>
+    <p>Color: <%= car.color %></p>
+    <% if (car.description) { %>
+    <p>Description: <%= car.description %></p>
+    <% } %>
+
+    <p>
+      <a href="/cars/<%= car.car_id %>/update">Update Car</a> |
+      <a href="/cars/<%= car.car_id %>/delete">Delete Car</a> |
+      <a href="/cars">Back to Car List</a>
+    </p>
+
+    <% } else { %>
+    <p>Car not found.</p>
+    <% } %>
+  </body>
+</html>
