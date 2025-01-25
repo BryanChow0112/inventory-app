@@ -129,6 +129,32 @@ async function deleteCar(id) {
   }
 }
 
+async function categoryHasCars(id) {
+  try {
+    const { rows } = await pool.query(
+      "SELECT COUNT(*) as car_count FROM cars WHERE category_id = $1",
+      [id]
+    );
+    return parseInt(rows[0].car_count) > 0;
+  } catch (error) {
+    console.error("Error checking if category has cars:", error);
+    throw error;
+  }
+}
+
+async function getCarsByCategory(categoryId) {
+  try {
+    const { rows } = await pool.query(
+      "SELECT cars.*, categories.name AS category_name FROM cars JOIN categories ON cars.category_id = categories.category_id WHERE cars.category_id = $1 ORDER BY cars.make, cars.model, cars.year",
+      [categoryId]
+    );
+    return rows;
+  } catch (error) {
+    console.error("Error fetching cars by category:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
   insertCategory,
@@ -139,5 +165,7 @@ module.exports = {
   insertCar,
   getCarById,
   updateCar,
-  deleteCar
+  deleteCar,
+  categoryHasCars,
+  getCarsByCategory
 };

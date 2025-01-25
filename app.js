@@ -13,17 +13,19 @@ pool
   .catch((err) => console.error("Database connection error:", err.stack));
 
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public")); // Serve static files from public directory
 
 // Set up view engine (EJS)
 app.set("view engine", "ejs");
 app.set("views", "./views");
 
+// Home route
 app.get("/", async (req, res) => {
   try {
-    res.send(`Hello, Car Inventory App!`);
+    res.render("index", { title: "Car Inventory Management" });
   } catch (err) {
     console.error(err);
-    res.status(500).send("Error connecting to database");
+    res.status(500).send("Error loading homepage");
   }
 });
 

@@ -1,4 +1,5 @@
 const db = require("../db/queries");
+const { validationResult } = require("express-validator");
 
 async function getAllCategories(req, res) {
   const categories = await db.getAllCategories();
@@ -30,7 +31,8 @@ async function getCategoryById(req, res) {
       return res.status(404).send("Category not found");
     }
 
-    res.render("categories/detail", { category });
+    const cars = await db.getCarsByCategory(categoryId);
+    res.render("categories/detail", { category, cars });
   } catch (error) {
     console.error("Error fetching category detail:", error);
     res.status(500).send("Error fetching category detail");
@@ -67,11 +69,24 @@ async function updateCategoryPost(req, res) {
 async function deleteCategoryPost(req, res) {
   const { categoryId } = req.params;
   try {
+    // Check if category has associated cars
+    const hasCars = await db.categoryHasCars(categoryId);
+    if (hasCars) {
+      // If category has cars, redirect back with error message
+      alert(
+        "This category cannot be deleted because it contains cars. Please re-categorize or delete the cars within this category before deleting it."
+      );
+      return res.redirect("/categories");
+    }
+
+    // If no cars, proceed with deletion
     await db.deleteCategory(categoryId);
+    req.session.success = "Category successfully deleted.";
     res.redirect("/categories");
   } catch (error) {
     console.error("Error deleting category:", error);
-    res.status(500).send("Error deleting category");
+    alert("Error deleting category.");
+    res.redirect("/categories");
   }
 }
 
