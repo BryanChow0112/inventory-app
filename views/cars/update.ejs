@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Car</title>
+    <style>
+        .error-message {
+            color: red;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Update Car</h1>
+    
+    <% if (locals.errors && errors.length > 0) { %>
+        <div class="error-message">
+            <ul>
+                <% errors.forEach(error => { %>
+                    <li><%= error.msg %></li>
+                <% }); %>
+            </ul>
+        </div>
+    <% } %>
+    
+    <% if (car) { %>
+        <form action="/cars/<%= car.car_id %>/update" method="POST">
+            <div>
+                <label for="make">Make:</label>
+                <input type="text" id="make" name="make" value="<%= car.make %>" required>
+            </div>
+            <div>
+                <label for="model">Model:</label>
+                <input type="text" id="model" name="model" value="<%= car.model %>" required>
+            </div>
+            <div>
+                <label for="year">Year:</label>
+                <input type="number" id="year" name="year" value="<%= car.year %>" required>
+            </div>
+            <div>
+                <label for="price">Price:</label>
+                <input type="number" id="price" name="price" step="0.01" value="<%= car.price %>" required>
+            </div>
+            <div>
+                <label for="color">Color:</label>
+                <input type="text" id="color" name="color" value="<%= car.color || '' %>">
+            </div>
+            <div>
+                <label for="description">Description:</label>
+                <textarea id="description" name="description"><%= car.description || '' %></textarea>
+            </div>
+            <div>
+                <label for="category_id">Category:</label>
+                <select id="category_id" name="category_id" required>
+                    <option value="">Select Category</option>
+                    <% if (categories && categories.length > 0) { %>
+                        <% categories.forEach(category => { %>
+                            <option value="<%= category.category_id %>" <% if (car.category_id == category.category_id) { %>selected<% } %>><%= category.name %></option>
+                        <% }); %>
+                    <% } %>
+                </select>
+            </div>
+
+            <button type="submit">Update Car</button>
+        </form>
+    <% } else { %>
+        <p>Car not found.</p>
+    <% } %>
+    <p>
+        <a href="/cars/<%= car ? car.car_id : '' %>">Back to Car Detail</a> | 
+        <a href="/cars">Back to Car List</a>
+    </p>
+</body>
+</html>

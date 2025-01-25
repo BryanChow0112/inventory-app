@@ -99,11 +99,20 @@ async function getCarById(id) {
   }
 }
 
-async function updateCar(id, make, model, year, price, categoryId) {
+async function updateCar(
+  id,
+  make,
+  model,
+  year,
+  price,
+  categoryId,
+  color = null,
+  description = null
+) {
   try {
     await pool.query(
-      "UPDATE cars SET make = $1, model = $2, year = $3, price = $4, category_id = $5 WHERE car_id = $6",
-      [make, model, year, price, categoryId, id]
+      "UPDATE cars SET make = $1, model = $2, year = $3, price = $4, category_id = $5, color = $6, description = $7 WHERE car_id = $8",
+      [make, model, year, price, categoryId, color, description, id]
     );
   } catch (error) {
     console.error("Error updating car:", error);
