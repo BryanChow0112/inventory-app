@@ -1,0 +1,94 @@
+<form action="<%= formAction %>" method="POST" class="styled-form">
+    <div class="form-grid">
+        <div class="form-group">
+            <label for="make">Make</label>
+            <input 
+                type="text" 
+                id="make" 
+                name="make" 
+                value="<%= locals.car ? car.make : '' %>"
+                placeholder="Enter car make (e.g., Toyota)"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="model">Model</label>
+            <input 
+                type="text" 
+                id="model" 
+                name="model" 
+                value="<%= locals.car ? car.model : '' %>"
+                placeholder="Enter car model (e.g., Corolla)"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input 
+                type="number" 
+                id="year" 
+                name="year" 
+                value="<%= locals.car ? car.year : new Date().getFullYear() %>"
+                min="1900"
+                max="<%= new Date().getFullYear() + 1 %>"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input 
+                type="number" 
+                id="price" 
+                name="price" 
+                value="<%= locals.car ? car.price : '' %>"
+                step="0.01"
+                min="0"
+                placeholder="Enter price"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="color">Color</label>
+            <input 
+                type="text" 
+                id="color" 
+                name="color" 
+                value="<%= locals.car ? car.color : '' %>"
+                placeholder="Enter car color"
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="category_id">Category</label>
+            <select id="category_id" name="category_id" required>
+                <option value="">Select Category</option>
+                <% categories.forEach(category => { %>
+                    <option 
+                        value="<%= category.category_id %>"
+                        <%= locals.car && car.category_id == category.category_id ? 'selected' : '' %>
+                    >
+                        <%= category.name %>
+                    </option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div class="form-group full-width">
+            <label for="description">Description</label>
+            <textarea 
+                id="description" 
+                name="description" 
+                rows="4"
+                placeholder="Enter car description"
+            ><%= locals.car ? car.description : '' %></textarea>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit" class="btn btn-primary"><%= submitButtonText %></button>
+    </div>
+</form> 
