@@ -44,9 +44,19 @@ async function updateCategory(id, name) {
   }
 }
 
+async function deleteCategory(id) {
+  try {
+    await pool.query("DELETE FROM categories WHERE category_id = $1", [id]);
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
   insertCategory,
   getCategoryById,
-  updateCategory
+  updateCategory,
+  deleteCategory
 };

@@ -45,4 +45,7 @@ router.post(
   categoryController.updateCategoryPost
 );
 
+// POST - Handle delete category request
+router.post("/:categoryId/delete", categoryController.deleteCategoryPost);
+
 module.exports = router;

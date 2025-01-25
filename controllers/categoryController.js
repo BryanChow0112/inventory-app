@@ -64,11 +64,23 @@ async function updateCategoryPost(req, res) {
   }
 }
 
+async function deleteCategoryPost(req, res) {
+  const { categoryId } = req.params;
+  try {
+    await db.deleteCategory(categoryId);
+    res.redirect("/categories");
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    res.status(500).send("Error deleting category");
+  }
+}
+
 module.exports = {
   getAllCategories,
   createCategoryGet,
   createCategoryPost,
   getCategoryById,
   updateCategoryGet,
-  updateCategoryPost
+  updateCategoryPost,
+  deleteCategoryPost
 };

@@ -9,7 +9,21 @@
     <% if (category) { %>
     <h2><%= category.name %></h2>
     <p>Category ID: <%= category.category_id %></p>
-    <p><a href="/categories">Back to Category List</a></p>
+
+    <form
+      action="/categories/<%= category.category_id %>/delete"
+      method="POST"
+      onsubmit="return confirm('Are you sure you want to delete this category?');"
+    >
+      <button type="submit">Delete Category</button>
+    </form>
+
+    <p>
+      <a href="/categories/<%= category.category_id %>/update"
+        >Update Category</a
+      >
+      | <a href="/categories">Back to Category List</a>
+    </p>
     <% } else { %>
     <p>Category not found.</p>
     <% } %>
