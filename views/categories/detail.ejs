@@ -4,28 +4,77 @@
     <title>Category Detail</title>
   </head>
   <body>
-    <h1>Category Detail</h1>
+    <%- include('../partials/header', { title: category.name }) %>
 
-    <% if (category) { %>
-    <h2><%= category.name %></h2>
-    <p>Category ID: <%= category.category_id %></p>
+    <div class="category-header">
+      <h1><%= category.name %> Cars</h1>
+      <div class="category-actions">
+        <a
+          href="/categories/<%= category.category_id %>/update"
+          class="btn btn-update"
+          >Update Category</a
+        >
+        <form
+          action="/categories/<%= category.category_id %>/delete"
+          method="POST"
+          style="display: inline"
+        >
+          <button
+            type="submit"
+            class="btn btn-delete"
+            onclick="return confirm('Are you sure you want to delete this category?')"
+          >
+            Delete Category
+          </button>
+        </form>
+      </div>
+    </div>
 
-    <form
-      action="/categories/<%= category.category_id %>/delete"
-      method="POST"
-      onsubmit="return confirm('Are you sure you want to delete this category?');"
+    <a href="/cars/create" class="btn btn-create"
+      >Add New Car to <%= category.name %></a
     >
-      <button type="submit">Delete Category</button>
-    </form>
 
-    <p>
-      <a href="/categories/<%= category.category_id %>/update"
-        >Update Category</a
-      >
-      | <a href="/categories">Back to Category List</a>
-    </p>
+    <% if (cars && cars.length > 0) { %>
+    <ul class="item-list">
+      <% cars.forEach(car => { %>
+      <li class="item">
+        <div class="item-details">
+          <h3><%= car.make %> <%= car.model %> (<%= car.year %>)</h3>
+          <p>Price: $<%= car.price.toLocaleString() %></p>
+          <% if (car.color) { %>
+          <p>Color: <%= car.color %></p>
+          <% } %> <% if (car.description) { %>
+          <p><%= car.description %></p>
+          <% } %>
+        </div>
+        <div class="item-actions">
+          <a href="/cars/<%= car.car_id %>" class="btn">View Details</a>
+          <a href="/cars/<%= car.car_id %>/update" class="btn btn-update"
+            >Update</a
+          >
+          <form
+            action="/cars/<%= car.car_id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button
+              type="submit"
+              class="btn btn-delete"
+              onclick="return confirm('Are you sure you want to delete this car?')"
+            >
+              Delete
+            </button>
+          </form>
+        </div>
+      </li>
+      <% }); %>
+    </ul>
     <% } else { %>
-    <p>Category not found.</p>
+    <p>No cars in this category yet.</p>
     <% } %>
+
+    <p><a href="/categories" class="btn">Back to Categories</a></p>
+
+    <%- include('../partials/footer') %>
   </body>
 </html>

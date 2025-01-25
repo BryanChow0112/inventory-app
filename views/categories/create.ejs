@@ -6,13 +6,9 @@
   <body>
     <h1>Create New Category</h1>
 
-    <form action="/categories/create" method="POST">
-      <div>
-        <label for="name">Category Name:</label>
-        <input type="text" id="name" name="name" required />
-      </div>
-      <button type="submit">Create Category</button>
-    </form>
-    <p><a href="/categories">Back to Category List</a></p>
+    <%- include('../partials/form-layout', { pageTitle: 'Create New Category',
+    formContent: '../categories/category-form', formData: { formAction:
+    '/categories/create', submitButtonText: 'Create Category' }, backUrl:
+    '/categories' }) %>
   </body>
 </html>

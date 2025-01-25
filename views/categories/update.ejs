@@ -6,28 +6,12 @@
   <body>
     <h1>Update Category</h1>
 
-    <% if (category) { %>
-    <form action="/categories/<%= category.category_id %>/update" method="POST">
-      <div>
-        <label for="name">Category Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          value="<%= category.name %>"
-          required
-        />
-      </div>
-      <button type="submit">Update Category</button>
-    </form>
-    <% } else { %>
+    <% if (category) { %> <%- include('../partials/form-layout', { pageTitle:
+    'Update Category', formContent: '../categories/category-form', formData: {
+    formAction: `/categories/${category.category_id}/update`, submitButtonText:
+    'Update Category', category: category }, backUrl:
+    `/categories/${category.category_id}` }) %> <% } else { %>
     <p>Category not found.</p>
     <% } %>
-    <p>
-      <a href="/categories/<%= category ? category.category_id : '' %>"
-        >Back to Category Detail</a
-      >
-      | <a href="/categories">Back to Category List</a>
-    </p>
   </body>
 </html>
