@@ -53,10 +53,62 @@ async function deleteCategory(id) {
   }
 }
 
+async function getAllCars() {
+  try {
+    const { rows } = await pool.query(
+      "SELECT cars.*, categories.name AS category_name FROM cars JOIN categories ON cars.category_id = categories.category_id ORDER BY cars.make, cars.model, cars.year"
+    );
+    return rows;
+  } catch (error) {
+    console.error("Error fetching cars:", error);
+    throw error;
+  }
+}
+
+async function insertCar(make, model, year, price, categoryId) {
+  try {
+    await pool.query(
+      "INSERT INTO cars (make, model, year, price, category_id) VALUES ($1, $2, $3, $4, $5)",
+      [make, model, year, price, categoryId]
+    );
+  } catch (error) {
+    console.error("Error inserting car:", error);
+    throw error;
+  }
+}
+
+async function getCarById(id) {
+  try {
+    const { rows } = await pool.query("SELECT * FROM cars WHERE car_id = $1", [
+      id
+    ]);
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching car by id:", error);
+    throw error;
+  }
+}
+
+async function updateCar(id, make, model, year, price, categoryId) {
+  try {
+    await pool.query(
+      "UPDATE cars SET make = $1, model = $2, year = $3, price = $4, category_id = $5 WHERE car_id = $6",
+      [make, model, year, price, categoryId, id]
+    );
+  } catch (error) {
+    console.error("Error updating car:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
   insertCategory,
   getCategoryById,
   updateCategory,
-  deleteCategory
+  deleteCategory,
+  getAllCars,
+  insertCar,
+  getCarById,
+  updateCar
 };

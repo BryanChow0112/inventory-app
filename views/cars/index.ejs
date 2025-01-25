@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Car List</title>
+  </head>
+  <body>
+    <h1>Car Inventory</h1>
+
+    <p><a href="/cars/create">Add New Car</a></p>
+
+    <% if (cars && cars.length > 0) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Make</th>
+          <th>Model</th>
+          <th>Year</th>
+          <th>Price</th>
+          <th>Color</th>
+          <th>Category</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% cars.forEach(car => { %>
+        <tr>
+          <td><%= car.make %></td>
+          <td><%= car.model %></td>
+          <td><%= car.year %></td>
+          <td>$<%= car.price %></td>
+          <td><%= car.color %></td>
+          <td><%= car.category_name %></td>
+          <!-- Display category name -->
+          <td>
+            <a href="/cars/<%= car.car_id %>">View</a> |
+            <a href="/cars/<%= car.car_id %>/update">Update</a> |
+            <a href="/cars/<%= car.car_id %>/delete">Delete</a>
+            <!-- Delete link - to be implemented -->
+          </td>
+        </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <% } else { %>
+    <p>No cars in inventory yet.</p>
+    <% } %>
+  </body>
+</html>

@@ -4,6 +4,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 const pool = require("./db/pool");
 const categoryRouter = require("./routes/categories");
+const carRouter = require("./routes/cars");
 
 // Test database connection (optional, but good to check)
 pool
@@ -27,6 +28,7 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/categories", categoryRouter);
+app.use("/cars", carRouter);
 
 // Start the server
 app.listen(port, () => {
