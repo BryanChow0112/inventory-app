@@ -105,11 +105,23 @@ async function updateCarPost(req, res) {
   }
 }
 
+async function deleteCarPost(req, res) {
+  const { carId } = req.params;
+  try {
+    await db.deleteCar(carId);
+    res.redirect("/cars");
+  } catch (error) {
+    console.error("Error deleting car:", error);
+    res.status(500).send("Error deleting car");
+  }
+}
+
 module.exports = {
   getAllCars,
   createCarGet,
   createCarPost,
   getCarById,
   updateCarGet,
-  updateCarPost
+  updateCarPost,
+  deleteCarPost
 };

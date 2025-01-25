@@ -120,6 +120,15 @@ async function updateCar(
   }
 }
 
+async function deleteCar(id) {
+  try {
+    await pool.query("DELETE FROM cars WHERE car_id = $1", [id]);
+  } catch (error) {
+    console.error("Error deleting car:", error);
+    throw error;
+  }
+}
+
 module.exports = {
   getAllCategories,
   insertCategory,
@@ -129,5 +138,6 @@ module.exports = {
   getAllCars,
   insertCar,
   getCarById,
-  updateCar
+  updateCar,
+  deleteCar
 };

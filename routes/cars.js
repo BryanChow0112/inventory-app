@@ -57,4 +57,7 @@ router.post(
   carController.updateCarPost
 );
 
+// POST - Handle delete car request
+router.post("/:carId/delete", carController.deleteCarPost);
+
 module.exports = router;
